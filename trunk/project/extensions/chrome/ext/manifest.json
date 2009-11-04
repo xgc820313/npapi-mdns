@@ -1,0 +1,13 @@
+{
+	"name": "mdns",
+	"version": "1",
+	"description": "mDNS based Service Discovery",
+	"plugins": [ 
+		{ "path":"npapi-mdns.so", "public":false}
+	],
+	"background_page": "background.html",
+	"browser_action": {
+		"default_icon": "erlang.png",
+	    "default_title": "Local Services"
+	}
+}
