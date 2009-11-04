@@ -264,7 +264,7 @@
 </scannerConfigBuildInfo>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<configuration artifactName="npapi-mdns" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" description="" id="cdt.managedbuild.toolchain.gnu.base.1906916119" name="Default" parent="org.eclipse.cdt.build.core.emptycfg">
+<configuration artifactExtension="so" artifactName="npapi-mdns" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" description="" id="cdt.managedbuild.toolchain.gnu.base.1906916119" name="Default" parent="org.eclipse.cdt.build.core.emptycfg" postannouncebuildStep="copy npapi-mdns.so to extensions/chrome/ext" postbuildStep="cp npapi-mdns.so ../../extensions/chrome/ext/npapi-mdns.so">
 <folderInfo id="cdt.managedbuild.toolchain.gnu.base.1906916119.1360269791" name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.base.357247988" name="cdt.managedbuild.toolchain.gnu.base" superClass="cdt.managedbuild.toolchain.gnu.base">
 <targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.target.gnu.platform.base.1333031536" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.gnu.platform.base"/>
@@ -286,7 +286,7 @@
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1821152016" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.base.1786308581" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.base">
-<option defaultValue="true" id="gnu.c.link.option.shared.1832070276" superClass="gnu.c.link.option.shared" valueType="boolean"/>
+<option defaultValue="true" id="gnu.c.link.option.shared.1832070276" name="Shared (-shared)" superClass="gnu.c.link.option.shared" valueType="boolean"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.base.1396285755" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.base">
 <option id="gnu.cpp.link.option.paths.1713104781" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
@@ -296,7 +296,7 @@
 <listOptionValue builtIn="false" value="pthread"/>
 <listOptionValue builtIn="false" value="dbus-1"/>
 </option>
-<option defaultValue="true" id="gnu.cpp.link.option.shared.1303429377" superClass="gnu.cpp.link.option.shared" valueType="boolean"/>
+<option defaultValue="true" id="gnu.cpp.link.option.shared.1303429377" name="Shared (-shared)" superClass="gnu.cpp.link.option.shared" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.670953798" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>

@@ -1,0 +1,14 @@
+<html>
+	<body>
+		<embed id="plugin" type="application/dbusmdns" width=0 height=0>
+	
+		<script>
+			chrome.browserAction.onClicked.addListener(function(tab) {
+				console.log("clicked");
+				var plugin=document.getElementById("plugin");
+				var msg = plugin.popmsg();
+				console.log(msg);
+			});
+		</script>
+	</body>
+</html>
