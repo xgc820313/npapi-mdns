@@ -3,8 +3,12 @@
 	<head>
 		<title>Local Web Services</title>
 		<script>
+			var services={};
 			var port=chrome.extension.connect();
 			console.log("port: "+port);
+			port.onMessage.addListener(function(msg) {
+				console.log(msg);
+			});
 		</script>
 	</head>
 	<body>
