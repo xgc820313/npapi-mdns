@@ -1,0 +1,8 @@
+{
+	"name": "mdns",
+	"version": "1",
+	"description": "mDNS",
+	"plugins": [ 
+		{ "path":"npapi-mdns.so", "public":false}
+	],
+}
