@@ -38,7 +38,7 @@ CC_DEPS += \
 src/%.o: ../src/%.cc
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DXP_UNIX=1 -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -I/usr/include/xulrunner-1.9.1.4/stable -O2 -fPIC -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
+	g++ -DXP_UNIX=1 -D_DEBUG -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -I/usr/include/xulrunner-1.9.1.4/stable -O2 -fPIC -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

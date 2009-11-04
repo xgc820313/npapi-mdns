@@ -3,11 +3,61 @@
 		<embed id="plugin" type="application/dbusmdns" width=0 height=0>
 	
 		<script>
+			var plugin=document.getElementById("plugin");
+			var httpServices={"versionId":0};
+			var listeners=[];
+
+			function notifyListeners() {
+				var updatedList=[];
+				for (var p=0; p<listeners.length; p++) {
+					try {
+						
+					} catch(err) {
+						
+					}
+				}//for
+			}
+			
+			setInterval(function(){
+				console.log("tick...");
+				var msg=plugin.popmsg();
+				if (null==msg)
+					return;
+
+				try {
+					var jobj = eval("jobj="+msg);
+				} catch(err) {
+					var jobj = {};
+				};
+				var signalName = jobj.signal || null;
+				if (null==signalName)
+					return;
+
+				var signal=signalName.toLowerCase();
+				
+				if (signal=="itemnew") {
+					console.log("new services, name: "+jobj["name"]);
+					httpServices[jobj["name"]]=jobj;
+				}
+
+				if (signal=="itemremove") {
+					console.log("service removed, name: "+jobj["name"]);
+					delete httpServices[jobj["name"]];
+				}
+
+				httpServices.versionId = httpServices.versionId++; 				 
+				
+				console.log( httpServices );
+			},1*1000);
+			
+			chrome.extension.onConnect.addListener(function(port) {
+				console.log("onConnect!");
+			});
+		
 			chrome.browserAction.onClicked.addListener(function(tab) {
 				console.log("clicked");
-				var plugin=document.getElementById("plugin");
-				var msg = plugin.popmsg();
-				console.log(msg);
+				var url=chrome.extension.getURL("services.html");
+				chrome.tabs.create({"url":url});
 			});
 		</script>
 	</body>
