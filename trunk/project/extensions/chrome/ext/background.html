@@ -8,22 +8,18 @@
 			var listeners=[];
 
 			function notifyListeners() {
-				var updatedList=[];
 				for (var p=0; p<listeners.length; p++) {
 					try {
-						
+						var port=listeners[p];
+						port.postMessage(httpServices);
 					} catch(err) {
-						
+						//hmmm... shouldn't occur						
 					}
 				}//for
 			}
 			
 			setInterval(function(){
-				console.log("tick...");
 				var msg=plugin.popmsg();
-				if (null==msg)
-					return;
-
 				try {
 					var jobj = eval("jobj="+msg);
 				} catch(err) {
@@ -46,12 +42,18 @@
 				}
 
 				httpServices.versionId = httpServices.versionId++; 				 
-				
+
+				notifyListeners();
 				console.log( httpServices );
 			},1*1000);
 			
 			chrome.extension.onConnect.addListener(function(port) {
-				console.log("onConnect!");
+				console.log("onConnect, tabid: "+port.tab.id);
+				listeners[port.tab.id] = port;
+				port.onDisconnect.addListener(function(port) {
+					console.log("onDisconnect, tabid: "+port.tab.id);
+					delete listeners[port.tab.id];
+				});
 			});
 		
 			chrome.browserAction.onClicked.addListener(function(tab) {
