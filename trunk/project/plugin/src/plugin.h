@@ -19,8 +19,6 @@
 
 	// For each plugin instance
 	typedef struct InstanceData {
-	  NPP npp;
-	  NPWindow window;
 	  NPObject *npo;
 	  NPNetscapeFuncs* sBrowserFuncs;
 	} InstanceData;

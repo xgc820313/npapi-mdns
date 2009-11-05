@@ -9,6 +9,9 @@
  */
 #pragma GCC diagnostic ignored "-Wwrite-strings"
 
+#define _GNU_SOURCE
+
+#include <dlfcn.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -49,7 +52,7 @@ fillPluginFunctionTable(NPPluginFuncs* pFuncs)
 
 NP_EXPORT(NPError)
 NP_Initialize(NPNetscapeFuncs* bFuncs, NPPluginFuncs* pFuncs) {
-	//DBGLOG(LOG_INFO, "NP_Initialize");
+	DBGLOG(LOG_INFO, "NP_Initialize");
 
 	sBrowserFuncs = bFuncs;
 	fillPluginFunctionTable(pFuncs);
@@ -69,23 +72,26 @@ NP_GetMIMEDescription() {
 
 NP_EXPORT(NPError)
 NP_GetValue(void* future, NPPVariable aVariable, void* aValue) {
-  switch (aVariable) {
-    case NPPVpluginNameString:
-      *((char**)aValue) = PLUGIN_NAME;
-      break;
-    case NPPVpluginDescriptionString:
-      *((char**)aValue) = PLUGIN_DESCRIPTION;
-      break;
-    default:
-      return NPERR_INVALID_PARAM;
-      break;
-  }
-  return NPERR_NO_ERROR;
+
+	DBGLOG(LOG_INFO, "NP_GetValue, variable: %i", aVariable);
+
+	switch (aVariable) {
+	case NPPVpluginNameString:
+		*((char**)aValue) = PLUGIN_NAME;
+		break;
+	case NPPVpluginDescriptionString:
+		*((char**)aValue) = PLUGIN_DESCRIPTION;
+		break;
+	default:
+		return NPERR_INVALID_PARAM;
+		break;
+	}
+	return NPERR_NO_ERROR;
 }
 
 NP_EXPORT(NPError)
 NP_Shutdown() {
-	//DBGLOG(LOG_INFO, "NP_Shutdown");
+	DBGLOG(LOG_INFO, "NP_Shutdown");
 	return NPERR_NO_ERROR;
 }
 
@@ -94,6 +100,8 @@ NP_Shutdown() {
  */
 NPError
 NPP_New(NPMIMEType pluginType, NPP instance, uint16_t mode, int16_t argc, char* argn[], char* argv[], NPSavedData* saved) {
+
+	DBGLOG(LOG_INFO, "NPP_New");
 
 	sBrowserFuncs->setvalue(instance, NPPVpluginWindowBool, (void*)false);
 
@@ -104,7 +112,6 @@ NPP_New(NPMIMEType pluginType, NPP instance, uint16_t mode, int16_t argc, char* 
 
 	memset(instanceData, 0, sizeof(InstanceData));
 
-	instanceData->npp = instance;
 	instance->pdata = instanceData;
 
 	instanceData->npo=NULL;
@@ -116,20 +123,23 @@ NPP_New(NPMIMEType pluginType, NPP instance, uint16_t mode, int16_t argc, char* 
 NPError
 NPP_Destroy(NPP instance, NPSavedData** save) {
 
-  InstanceData *instanceData = (InstanceData*)(instance->pdata);
-  if (NULL!=instanceData->npo) {
-	  ((NPBrowser *)instanceData->npo)->Deallocate();
-	  delete instanceData->npo;
-  }
+	DBGLOG(LOG_INFO, "NPP_Destroy - start");
 
-  free(instanceData);
-  return NPERR_NO_ERROR;
+	InstanceData *instanceData = (InstanceData*)(instance->pdata);
+	if (NULL!=instanceData) {
+		free(instance->pdata);
+		instance->pdata=NULL;
+	}
+
+	DBGLOG(LOG_INFO, "NPP_Destroy - end");
+
+	return NPERR_NO_ERROR;
 }
 
 NPError
 NPP_GetValue(NPP instance, NPPVariable variable, void *value) {
 
-	//DBGLOG(LOG_INFO, "NPP_GetValue, variable: %i", variable);
+	DBGLOG(LOG_INFO, "NPP_GetValue, variable: %i", variable);
 
 	InstanceData *instanceData = (InstanceData*)(instance->pdata);
 
@@ -161,3 +171,10 @@ NPP_SetValue(NPP instance, NPNVariable variable, void *value) {
   return NPERR_GENERIC_ERROR;
 }
 */
+
+__attribute__((constructor))
+void on_load(void) {
+    Dl_info dl_info;
+    dladdr((void *) on_load, &dl_info);
+    DBGLOG(LOG_INFO, "module %s loaded\n", dl_info.dli_fname);
+}

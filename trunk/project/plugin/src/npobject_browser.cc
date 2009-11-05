@@ -81,21 +81,29 @@ bool NPBrowser::_NPConstruct(NPObject *obj,const NPVariant *args,uint32_t argCou
 
 
 NPBrowser::NPBrowser(NPP npp) {
+	DBGLOG(LOG_INFO, "NPBrowser::NPBrowser()");
 	m_Instance=npp;
 	mb=NULL;
 }//
 
-NPBrowser::~NPBrowser() {}
+NPBrowser::~NPBrowser() {
+	DBGLOG(LOG_INFO, "NPBrowser::~NPBrowser()");
+}
 
-void NPBrowser::Deallocate() {
+void
+NPBrowser::Deallocate() {
+
+	DBGLOG(LOG_INFO, "NPBrowser::Deallocate()");
+
     if (NULL!=mb) {
     	mb->release();
     	delete mb;
+    	mb=NULL; // just being cautious
     }
 }
 
 void NPBrowser::Invalidate() {
-    // Invalidate the control however you wish
+	DBGLOG(LOG_INFO, "NPBrowser::Invalidate()");
 }
 
 bool NPBrowser::HasMethod(NPIdentifier name) {

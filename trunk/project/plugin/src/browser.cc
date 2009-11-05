@@ -178,6 +178,7 @@ browser_init(CommChannel *cc) {
 
 	assert(cc);
 
+	pthread_t *threadData = (pthread_t *) malloc(sizeof(pthread_t));
 	browserParams *bp = (browserParams *) malloc(sizeof(browserParams));
 	if (NULL==bp)
 		goto exit;
@@ -194,12 +195,18 @@ browser_init(CommChannel *cc) {
 
 	bp->cc = cc;
 
-	pthread_create(&(bp->thread), NULL, &__browser_thread_function, (void *) bp);
+	DBGLOG(LOG_INFO, "* creating thread");
+
+	pthread_create(threadData, NULL, &__browser_thread_function, (void *) bp);
+//@TODO leak!
 
 	return BROWSER_OK;
 //  ==================
 
 clean:
+
+	if (threadData)
+		free(threadData);
 
 	if (cc->in)
 		free(cc->in);
@@ -230,12 +237,18 @@ event_pump(browserParams *bp) {
 	assert(bp);
 
 	DBusConnection *conn = bp->conn;
-
+	//DBGLOG(LOG_INFO, "event_pump: start");
 	// connected on DBus yet?
-	if (NULL!=conn) {
-		if (!dbus_connection_read_write_dispatch(conn, 100 /*timeout*/))
-			return E_DBUS_DISCONNECT;
+
+	try {
+		if (NULL!=conn) {
+			if (!dbus_connection_read_write_dispatch(conn, 100 /*timeout*/))
+				return E_DBUS_DISCONNECT;
+		}
+	} catch(...) {
+		DBGLOG(LOG_ERR, ">>>> exception caught!");
 	}
+	//DBGLOG(LOG_INFO, "event_pump: middle");
 
 	int mtype=BMsg::BMSG_INVALID;
 	BMsg *msg= (BMsg *) queue_get_nb(bp->cc->in);
@@ -266,6 +279,7 @@ event_pump(browserParams *bp) {
 	if (NULL!=msg)
 		delete msg;
 
+	//DBGLOG(LOG_INFO, "event_pump: end");
 	return ret;
 }//
 
@@ -291,12 +305,11 @@ run_fsm(browserParams *bp) {
 		if (E_NULL==re)
 			currentEvent = event_pump(bp);
 
-		static FsmState lastState=ST_START;
+		//static FsmState lastState=ST_START;
 
-		if (currentState!=lastState)
-			DBGMSG(">> State: %s, Event: %s\n", States[currentState], Events[currentEvent]);
-
-		lastState=currentState;
+		//if (currentState!=lastState)
+		//	DBGLOG(LOG_INFO, ">> State: %s, Event: %s\n", States[currentState], Events[currentEvent]);
+		//lastState=currentState;
 
 		for (int i=0; i<tcount;i++) {
 			FsmState ts = TransitionTable[i].current_state;
@@ -313,7 +326,7 @@ run_fsm(browserParams *bp) {
 					fc.state = currentState;
 					fc.event = currentEvent;
 
-					//DBGMSG("=> dispatching to action=%i, state=%i, event=%i\n", action, ts, te);
+					//DBGLOG(LOG_INFO, "=> dispatching to action=%i, state=%i, event=%i\n", action, ts, te);
 					if (NULL!=action)
 						re = (*action)(&fc);
 					else {
@@ -569,9 +582,9 @@ fail:
 void *
 __browser_thread_function(void *bp) {
 
-	DBGMSG("** Browser thread entering read-write loop\n");
+	DBGLOG(LOG_INFO, "** Browser thread entering read-write loop\n");
 		run_fsm( (browserParams *) bp);
-	DBGMSG("!! Browser thread exiting\n");
+	DBGLOG(LOG_INFO, "!! Browser thread exiting\n");
 
 	//the field 'cc' of the browserParams struct
 	//needs to be taken care of by the original caller.
@@ -655,9 +668,9 @@ __browser_send_request_service_browser_new(DBusConnection *conn) {
 
 
 DBusHandlerResult
-__browser_filter_func (IN DBusConnection *connection,
-						IN DBusMessage   *message,
-						IN void          *_bp)
+__browser_filter_func (DBusConnection *connection,
+						DBusMessage   *message,
+						void          *_bp)
 {
 	//DBGLOG(LOG_INFO, "ingress_filter_func, conn: %i  message: %i", connection, message);
 
@@ -768,3 +781,17 @@ __browser__process_signal(DBusMessage *msg, browserParams *bp, const char *signa
 	browser_push_msg(bp, bmsg);
 
 }//
+
+
+namespace {
+
+    class dynamic_library_load_unload_handler {
+         public:
+              dynamic_library_load_unload_handler(){
+            	  DBGLOG(LOG_INFO, "Library loaded");
+              }
+              ~dynamic_library_load_unload_handler(){
+            	  DBGLOG(LOG_INFO, "**** Library being un-loaded ****");
+              }
+    } dynamic_library_load_unload_handler_hook;
+}

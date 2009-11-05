@@ -1,14 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<head>
-		<title>Local Web Services</title>
-	</head>
 	<body>
-		<h1>Local WEB Services</h1>
 		<embed id="plugin" type="application/dbusmdns" width=0 height=0>
+	
 		<script>
 			var plugin=document.getElementById("plugin");
 			var httpServices={};
+			var listeners=[];
+
+			function notifyListeners() {
+				for (var p=0; p<listeners.length; p++) {
+					try {
+						var port=listeners[p];
+						port.postMessage(httpServices);
+					} catch(err) {
+						//hmmm... shouldn't occur						
+					}
+				}//for
+			}
 			
 			setInterval(function(){
 				var msg=plugin.popmsg();
@@ -34,9 +42,25 @@
 					delete httpServices[jobj["name"]];
 				}
 
+				notifyListeners();
 				console.log( httpServices );
 			},1*1000);
+			
+			chrome.extension.onConnect.addListener(function(port) {
+				console.log("onConnect, tabid: "+port.tab.id);
+				listeners[port.tab.id] = port;
+				notifyListeners();
+				
+				port.onDisconnect.addListener(function(port) {
+					console.log("onDisconnect, tabid: "+port.tab.id);
+					delete listeners[port.tab.id];
+				});
+			});
 		
-		</script>	
+			chrome.browserAction.onClicked.addListener(function(tab) {
+				var url=chrome.extension.getURL("services.html");
+				chrome.tabs.create({"url":url});
+			});
+		</script>
 	</body>
 </html>

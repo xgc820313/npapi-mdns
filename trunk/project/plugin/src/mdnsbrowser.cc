@@ -5,12 +5,15 @@
  *      Author: jldupont
  */
 #include "mdnsbrowser.h"
+#include "macros.h"
 
 MDNSBrowser::MDNSBrowser() {
 	initState=FALSE;
+	DBGLOG(LOG_INFO, "MDNSBrowser::MDNSBrowser");
 }//
 
 MDNSBrowser::~MDNSBrowser() {
+	DBGLOG(LOG_INFO, "MDNSBrowser::~MDNSBrowser");
 }
 
 bool
@@ -47,7 +50,12 @@ MDNSBrowser::release(void) {
 		return;
 	}
 
+	DBGLOG(LOG_INFO, "MDNSBrowser::release()");
+
 	pushMsg( BMsg::BMSG_EXIT_CLEAN );
+
+	//can't use the communication from now on.
+	cc=NULL;
 
 }//
 
