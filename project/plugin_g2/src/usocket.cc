@@ -43,6 +43,19 @@ int uSocket::getLastError(void) {
 std::string
 uSocket::popmsg(void) {
 
+	std::string ret;
+	char *buff[512]; buff[0] = '\0';
+	ssize_t bytes = read( sockets[0], (void*) buff, sizeof(buff));
+
+	if (0>bytes) {
+		code=errno;
+		throw uSocketSocketException(errno);
+	}
+
+	ibuffer.append( buff );
+
+
+
 }//
 
 
