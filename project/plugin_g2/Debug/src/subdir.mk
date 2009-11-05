@@ -5,15 +5,21 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CC_SRCS += \
 ../src/logger.cc \
-../src/plugin.cc 
+../src/plugin.cc \
+../src/sb.cc \
+../src/usocket.cc 
 
 OBJS += \
 ./src/logger.o \
-./src/plugin.o 
+./src/plugin.o \
+./src/sb.o \
+./src/usocket.o 
 
 CC_DEPS += \
 ./src/logger.d \
-./src/plugin.d 
+./src/plugin.d \
+./src/sb.d \
+./src/usocket.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

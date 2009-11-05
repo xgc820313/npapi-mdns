@@ -1,0 +1,72 @@
+/**
+ * @file usocket.h
+ *
+ *  Created on: 2009-11-05
+ *      Author: jldupont
+ */
+
+#ifndef USOCKET_H_
+#define USOCKET_H_
+
+	#include <string>
+	using namespace std;
+
+	/**
+	 * uSocket Exception Class
+	 */
+	class uSocketException {
+	public:
+		uSocketException( std::string s) {
+			m_desc=s;
+		}
+		~uSocketException();
+
+	private:
+		std::string m_desc;
+	};
+
+	/**
+	 * Unix domain socket
+	 */
+	class uSocket {
+
+	protected:
+		// sockets[0] is always used when serving
+		// sockets[1] is sent to the peer
+		int sockets[2];
+
+		bool status;
+		int  code;
+
+	public:
+		/**
+		 * Creates a socket pair
+		 */
+		uSocket();
+
+		/**
+		 * Creates a single socket
+		 */
+		uSocket(int s);
+
+		~uSocket();
+
+		/**
+		 * Returns the socket handle
+		 * that should be used by the peer
+		 */
+		int getPeerSocket(void);
+
+		/**
+		 * Pops a "message" from the queue
+		 */
+		std::string popmsg(void);
+
+		/**
+		 * Pushes a "message" in the queue
+		 */
+		void pushmsg(std::string msg);
+	};
+
+
+#endif /* USOCKET_H_ */
