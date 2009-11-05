@@ -178,12 +178,9 @@ NPP_GetValue(NPP instance, NPPVariable variable, void *value) {
 }
 
 namespace {
-
     class dynamic_library_load_unload_handler {
-
          public:
               dynamic_library_load_unload_handler(){
-
             	    Dl_info dl_info;
             	    dladdr((void *) NP_Initialize, &dl_info);
             	    std::string path(dl_info.dli_fname);
@@ -191,7 +188,6 @@ namespace {
             	    sbpath = wdir + SERVICE_BROWSER_PATH;
               }
               ~dynamic_library_load_unload_handler(){
-                    // Code to execute when the library is unloaded
               }
     } dynamic_library_load_unload_handler_hook;
 }
