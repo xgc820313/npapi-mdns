@@ -38,24 +38,24 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: ServiceBrowserJSON
+all: npapi-mdns.so
 
 # Tool invocations
-ServiceBrowserJSON: $(OBJS) $(USER_OBJS)
+npapi-mdns.so: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++ -L//lib -o"ServiceBrowserJSON" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++ -shared -o"npapi-mdns.so" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C++_DEPS)$(C_DEPS)$(CC_DEPS)$(CPP_DEPS)$(EXECUTABLES)$(CXX_DEPS)$(C_UPPER_DEPS) ServiceBrowserJSON
+	-$(RM) $(OBJS)$(C++_DEPS)$(C_DEPS)$(CC_DEPS)$(LIBRARIES)$(CPP_DEPS)$(CXX_DEPS)$(C_UPPER_DEPS) npapi-mdns.so
 	-@echo ' '
 
 post-build:
-	-cp ServiceBrowserJSON ../../extensions/chrome/ext/ServiceBrowserJSON
+	-cp npapi-mdns.so ../../extensions/chrome/ext/npapi-mdns.so
 	-@echo ' '
 
 .PHONY: all clean dependents
