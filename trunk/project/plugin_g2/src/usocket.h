@@ -53,6 +53,7 @@
 		bool status;
 		int  code;
 
+		std::string ibuffer;
 
 	public:
 		/**
@@ -77,11 +78,15 @@
 
 		/**
 		 * Pops a "message" from the queue
+		 *
+		 * @throws uSocketException
 		 */
 		std::string popmsg(void);
 
 		/**
 		 * Pushes a "message" in the queue
+		 *
+		 * @throws uSocketException
 		 */
 		void pushmsg(std::string msg);
 	};
