@@ -16,13 +16,28 @@
 	 */
 	class uSocketException {
 	public:
-		uSocketException( std::string s) {
+
+		/**
+		 * Create with an `errno`
+		 */
+		uSocketException( int _err ) {
+			err = _err;
+		}
+		uSocketException( std::string s ) {
 			m_desc=s;
 		}
 		~uSocketException();
 
+		/**
+		 * Returns the last `errno`
+		 */
+		int getError(void) {
+			return err;
+		}
+
 	private:
 		std::string m_desc;
+		int err;
 	};
 
 	/**
@@ -37,6 +52,7 @@
 
 		bool status;
 		int  code;
+
 
 	public:
 		/**
@@ -56,6 +72,8 @@
 		 * that should be used by the peer
 		 */
 		int getPeerSocket(void);
+
+		int getLastError(void);
 
 		/**
 		 * Pops a "message" from the queue

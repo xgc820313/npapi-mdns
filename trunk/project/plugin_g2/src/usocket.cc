@@ -31,4 +31,29 @@ uSocket::uSocket() {
 	}
 }//
 
+int uSocket::getPeerSocket(void) {
+
+	return sockets[1];
+}//
+
+int uSocket::getLastError(void) {
+	return code;
+}
+
+std::string
+uSocket::popmsg(void) {
+
+}//
+
+
+void
+uSocket::pushmsg(std::string msg) {
+
+	//even send the NULL termination byte
+	ssize_t written=write(sockets[0], (const void *) msg.data(),  msg.length()+1 );
+	if (-1 == written) {
+		code = errno;
+		throw uSocketException(errno);
+	}
+}//
 
