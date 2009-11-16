@@ -44,6 +44,7 @@ int main(int argc, char *argv[]) {
 	do {
 		if (!dbus_connection_read_write_dispatch(conn, 100 /*timeout*/)) {
 			cout << "{'signal':'disconnected'};\n";
+			cout.flush();
 			break;
 		}
 
