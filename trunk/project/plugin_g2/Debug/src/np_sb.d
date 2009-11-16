@@ -1,16 +1,16 @@
-src/plugin.d src/plugin.o: ../src/plugin.cc \
+src/np_sb.d src/np_sb.o: ../src/np_sb.cc ../src/np_sb.h \
   /usr/include/xulrunner-1.9.1.5/stable/npapi.h \
-  /usr/include/xulrunner-1.9.1.5/stable/nptypes.h ../src/plugin.h \
+  /usr/include/xulrunner-1.9.1.5/stable/nptypes.h \
   /usr/include/xulrunner-1.9.1.5/stable/npfunctions.h \
   /usr/include/xulrunner-1.9.1.5/stable/npapi.h \
-  /usr/include/xulrunner-1.9.1.5/stable/npruntime.h ../src/macros.h \
-  ../src/np_sb.h ../src/sb.h
+  /usr/include/xulrunner-1.9.1.5/stable/npruntime.h ../src/sb.h \
+  ../src/macros.h ../src/plugin.h
+
+../src/np_sb.h:
 
 /usr/include/xulrunner-1.9.1.5/stable/npapi.h:
 
 /usr/include/xulrunner-1.9.1.5/stable/nptypes.h:
-
-../src/plugin.h:
 
 /usr/include/xulrunner-1.9.1.5/stable/npfunctions.h:
 
@@ -18,8 +18,8 @@ src/plugin.d src/plugin.o: ../src/plugin.cc \
 
 /usr/include/xulrunner-1.9.1.5/stable/npruntime.h:
 
+../src/sb.h:
+
 ../src/macros.h:
 
-../src/np_sb.h:
-
-../src/sb.h:
+../src/plugin.h:

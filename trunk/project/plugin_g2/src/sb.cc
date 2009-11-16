@@ -20,6 +20,11 @@ ServiceBrowser::~ServiceBrowser() {
 		pclose(pipe);
 }//
 
+void
+ServiceBrowser::setSBPath(std::string _sbpath) {
+	sbpath=_sbpath;
+}
+
 bool
 ServiceBrowser::init(void) {
 
@@ -92,8 +97,6 @@ ServiceBrowser::popmsg(void) {
 	if (pos==std::string::npos) {
 		return std::string("");
 	}
-
-	//printf("\nbuffer: %s \n", buffer.c_str());
 
 	std::string ret(buffer.substr(0, pos));
 

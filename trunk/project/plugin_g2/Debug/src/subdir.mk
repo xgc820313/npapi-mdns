@@ -6,18 +6,21 @@
 CC_SRCS += \
 ../src/logger.cc \
 ../src/main.cc \
+../src/np_sb.cc \
 ../src/plugin.cc \
 ../src/sb.cc 
 
 OBJS += \
 ./src/logger.o \
 ./src/main.o \
+./src/np_sb.o \
 ./src/plugin.o \
 ./src/sb.o 
 
 CC_DEPS += \
 ./src/logger.d \
 ./src/main.d \
+./src/np_sb.d \
 ./src/plugin.d \
 ./src/sb.d 
 

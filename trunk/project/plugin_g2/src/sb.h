@@ -21,10 +21,10 @@
 
 	public:
 		typedef enum {
+			CLOSED=-2,
+			NOT_READY=-1,
 			INVALID=0,
-			READY,
-			NOT_READY,
-			CLOSED
+			READY=1
 		} State;
 
 	protected:
@@ -36,9 +36,11 @@
 
 	public:
 
+		ServiceBrowser();
 		ServiceBrowser(std::string _sbpath);
 		~ServiceBrowser();
 
+		void setSBPath(std::string _sbpath);
 		bool init(void);
 
 		State getState(void) {
@@ -46,7 +48,6 @@
 		}
 
 		std::string popmsg(void);
-
 	};
 
 

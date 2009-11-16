@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string.h>
+#include <unistd.h>
 #include "sb.h"
 
 int main(int argc, char *argv[]) {
@@ -27,6 +28,8 @@ int main(int argc, char *argv[]) {
 		}
 		cout << sb.popmsg();
 		cout.flush();
+
+		sleep(1);
 	}
 
 	return 0;
