@@ -18,6 +18,7 @@
 #include "npapi.h"
 #include "plugin.h"
 #include "macros.h"
+#include "np_sb.h"
 
 
 #define PLUGIN_NAME        "DBus-mdns adapter"
@@ -167,8 +168,9 @@ NPP_GetValue(NPP instance, NPPVariable variable, void *value) {
 		if (NULL!=instanceData->npo) {
 		  *(NPObject **)value = instanceData->npo;
 		} else {
-			//instanceData->npo = (*sBrowserFuncs->createobject)(instance, &NPBrowser::_npclass);
+			instanceData->npo = (*sBrowserFuncs->createobject)(instance, &NP_ServiceBrowser::_npclass);
 			*(NPObject **)value = instanceData->npo;
+			((NP_ServiceBrowser *) instanceData->npo)->setSBPath(sbpath);
 		}
 		break;
 	default:
