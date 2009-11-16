@@ -89,6 +89,10 @@
 		 * @throws uSocketException
 		 */
 		void pushmsg(std::string msg);
+
+	protected:
+		std::string popFromBuffer(void);
+
 	};
 
 

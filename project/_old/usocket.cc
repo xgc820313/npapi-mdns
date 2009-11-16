@@ -40,18 +40,30 @@ int uSocket::getLastError(void) {
 	return code;
 }
 
+inline std::string
+uSocket::popFromBuffer(void) {
+	std::string ret;
+
+	size_t pos = ibuffer.find_first_of('\n');
+	if (string::npos!=pos) {
+		//found at least one message
+		ret=ibuffer.substr(0, pos);
+		std::string newibuffer;
+		newibuffer=ibuffer.substr(pos);
+		ibuffer=newibuffer;
+	}
+	return ret;
+}//
+
 std::string
 uSocket::popmsg(void) {
 
 	std::string ret;
 	char *buff[512]; buff[0] = '\0';
 
-	size_t pos = ibuffer.find_first_of('\n');
-	if (std::npos!=pos) {
-		//found at least one message
-		ret=ibuffer.substr(0, pos);
-
-	}
+	ret=popFromBuffer();
+	if (ret.length()>0)
+		return ret;
 
 	// first, attempt to read some bytes from the pipe
 	// even if we've got potentially some stuff waiting in the
@@ -61,13 +73,12 @@ uSocket::popmsg(void) {
 
 	if (0>bytes) {
 		code=errno;
-		throw uSocketSocketException(errno);
+		throw uSocketException(errno);
 	}
 
-	ibuffer.append( buff );
+	ibuffer.append( (const char *)buff );
 
-
-
+	return popFromBuffer();
 }//
 
 

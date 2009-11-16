@@ -8,27 +8,44 @@
 #ifndef SB_H_
 #define SB_H_
 
+	#include <fcntl.h>
 	#include <stdio.h>
 	#include <spawn.h>
+	#include <errno.h>
 	#include <string>
+	#include "macros.h"
 
 	using namespace std;
 
 	class ServiceBrowser {
 
+	public:
+		typedef enum {
+			INVALID=0,
+			READY,
+			NOT_READY,
+			CLOSED
+		} State;
+
 	protected:
 		FILE *pipe;
+		int pipeno;
+		State st;
+		std::string buffer;
+		std::string sbpath;
 
 	public:
-		static std::string sbpath;
 
-		ServiceBrowser();
+		ServiceBrowser(std::string _sbpath);
 		~ServiceBrowser();
 
 		bool init(void);
 
+		State getState(void) {
+			return st;
+		}
+
 		std::string popmsg(void);
-		void pushmsg(std::string msg);
 
 	};
 
