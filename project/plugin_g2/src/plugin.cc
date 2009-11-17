@@ -171,6 +171,7 @@ NPP_GetValue(NPP instance, NPPVariable variable, void *value) {
 			instanceData->npo = (*sBrowserFuncs->createobject)(instance, &NP_ServiceBrowser::_npclass);
 			*(NPObject **)value = instanceData->npo;
 			((NP_ServiceBrowser *) instanceData->npo)->setSBPath(sbpath);
+			((NP_ServiceBrowser *) instanceData->npo)->init();
 		}
 		break;
 	default:
