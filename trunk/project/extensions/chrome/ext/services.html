@@ -61,7 +61,7 @@
 				var url="http://"+hn+":"+port+"/";
 				var anchor="<a href='"+url+"'>"+name+"</a>";
 				var img="<img id='i"+id+"' src='"+url+"favicon.ico' onerror='javascript:removeImg(this.id);'/>";
-				$("#liste").append("<li id='s"+id+"'>"+img+anchor+"</li>");
+				$("#liste").append("<li id='s"+id+"'>"+img+"  "+anchor+"</li>");
 			}
 
 			function itemremove(name) {
