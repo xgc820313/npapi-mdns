@@ -83,7 +83,7 @@ bool NP_ServiceBrowser::_NPConstruct(NPObject *obj,const NPVariant *args,uint32_
 
 
 NP_ServiceBrowser::NP_ServiceBrowser(NPP npp) {
-	DBGLOG(LOG_INFO, "NP_ServiceBrowser::NP_ServiceBrowser()");
+	DBGLOG(LOG_INFO, "NP_ServiceBrowser::NP_ServiceBrowser(npp)");
 	m_Instance=npp;
 }//
 
@@ -120,9 +120,7 @@ bool NP_ServiceBrowser::HasMethod(NPIdentifier name) {
 
 bool NP_ServiceBrowser::Invoke(NPIdentifier name, const NPVariant *args, uint32_t argCount, NPVariant *result) {
 
-	static const char *NA="{'signal':'not_available'};";
-
-	//DBGLOG(LOG_INFO, "NPBroser::Invoke");
+	//DBGLOG(LOG_INFO, "NP_ServiceBrowser::Invoke");
 
 	InstanceData* instanceData = (InstanceData *)m_Instance->pdata;
 
@@ -138,6 +136,8 @@ bool NP_ServiceBrowser::Invoke(NPIdentifier name, const NPVariant *args, uint32_
 	char *pstr;
 
 	if (sb.getState() != ServiceBrowser::READY) {
+		DBGLOG(LOG_ERR, "Service Browser not available!");
+		static char NA[]="{'signal':'not_available'};";
 		pstr=(char *) malloc(sizeof(NA)+1);
 		strcpy(pstr, NA);
 	} else {
@@ -188,11 +188,13 @@ bool NP_ServiceBrowser::Construct(const NPVariant *args, uint32_t argCount, NPVa
 // =========================================================
 
 void NP_ServiceBrowser::setSBPath(std::string sbpath) {
+	//DBGLOG(LOG_INFO, "Setting SBPath: %s", sbpath.data());
 	sb.setSBPath(sbpath);
 }
 
 void NP_ServiceBrowser::init(void) {
 	// status can be read later
 	sb.init();
+	//DBGLOG(LOG_INFO, "NP_ServiceBrowser::init() -> %i", result);
 }
 

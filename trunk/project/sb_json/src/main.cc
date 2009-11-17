@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <signal.h>
+#include <sys/types.h>
 
 #include "browser.h"
 
@@ -25,9 +26,21 @@ void sigtermHandler(int i) {
 	exit(0);
 }
 
+void sigpipeHandler(int i) {
+
+	DBGLOG(LOG_INFO, "ServiceBrowser: SIGPIPE received");
+
+	if (NULL!=conn) {
+		dbus_connection_unref(conn);
+	}
+
+	exit(0);
+}
+
 int main(int argc, char *argv[]) {
 
 	signal(SIGTERM, sigtermHandler);
+	signal(SIGPIPE, sigpipeHandler);
 
 	BrowserReturnCode code;
 
