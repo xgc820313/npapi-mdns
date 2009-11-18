@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<script type="text/javascript" src="jquery.js"></script>
+		<title>Local Web Services</title>
+	</head>
+	<body>
+		<h1>Local WEB Services</h1>
+		
+		<ul id="liste">
+		</ul>
+		
+		<embed id="plugin" type="application/dbusmdns" width=0 height=0/>
+		<script>
+			var plugin=document.getElementById("plugin");
+			var httpServices={};
+			var counter=0;
+			
+			setInterval(function(){
+				var msg=plugin.popmsg();
+				try {
+					var jobj = eval("jobj="+msg);
+				} catch(err) {
+					var jobj = {};
+				};
+				jobj= jobj || {};
+				var signalName = jobj.signal || null;
+				if (null==signalName)
+					return;
+
+				var signal=signalName.toLowerCase();
+				//console.log("signal: "+signal);
+				
+				if (signal=="itemnew") {
+					var name=jobj["name"];
+					jobj.ref=counter++;
+					httpServices[name]=jobj;
+					itemnew(name);
+				}
+
+				if (signal=="itemremove") {
+					var name=jobj["name"];
+					itemremove(name);
+					delete httpServices[name];
+				}
+
+				console.log( httpServices );
+			},1*1000);
+
+			function removeImg(id) {
+				console.log("removeImg, id:"+id);
+				$("#"+id).remove();
+			}
+			
+			function itemnew(name) {
+				console.log("itemnew: "+name);
+				var s=httpServices[name];
+				var id=s.ref;
+				var port=s.port;
+				var hn=s.host_name;
+				var url="http://"+hn+":"+port+"/";
+				var anchor="<a href='"+url+"'>"+name+"</a>";
+				var img="<img id='i"+id+"' src='"+url+"favicon.ico' onerror='javascript:removeImg(this.id);'/>";
+				$("#liste").append("<li id='s"+id+"'>"+img+"  "+anchor+"</li>");
+			}
+
+			function itemremove(name) {
+				console.log("itemremove: "+name);
+				var id=httpServices[name].ref;
+				$("#liste #s"+id).remove();
+			}
+		</script>	
+	</body>
+</html>
