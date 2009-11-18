@@ -20,7 +20,7 @@
 </extensions>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<configuration artifactExtension="so" artifactName="npapi-mdns" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.so.debug.2088165124" name="Debug" parent="cdt.managedbuild.config.gnu.so.debug" postbuildStep="cp npapi-mdns.so ../../extensions/chrome/ext/npapi-mdns.so">
+<configuration artifactExtension="so" artifactName="npapi-mdns" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.so.debug.2088165124" name="Debug" parent="cdt.managedbuild.config.gnu.so.debug" postbuildStep="cp npapi-mdns.so ../../extensions/chrome/mdns/npapi-mdns.so">
 <folderInfo id="cdt.managedbuild.config.gnu.so.debug.2088165124." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.so.debug.65036705" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.so.debug">
 <targetPlatform id="cdt.managedbuild.target.gnu.platform.so.debug.1525261108" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.so.debug"/>
@@ -51,6 +51,8 @@
 <option defaultValue="true" id="gnu.cpp.link.so.debug.option.shared.1622396966" name="Shared (-shared)" superClass="gnu.cpp.link.so.debug.option.shared" valueType="boolean"/>
 <option id="gnu.cpp.link.option.libs.2127359963" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 <listOptionValue builtIn="false" value="dl"/>
+<listOptionValue builtIn="false" value="avahi-common"/>
+<listOptionValue builtIn="false" value="avahi-client"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1422253964" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
@@ -505,7 +507,7 @@
 </extensions>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<configuration artifactExtension="so" artifactName="npapi-mdns" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.so.release.1813352475" name="Release" parent="cdt.managedbuild.config.gnu.so.release" postbuildStep="cp npapi-mdns.so ../../extensions/chrome/ext/npapi-mdns.so">
+<configuration artifactExtension="so" artifactName="npapi-mdns" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.so.release.1813352475" name="Release" parent="cdt.managedbuild.config.gnu.so.release" postbuildStep="cp npapi-mdns.so ../../extensions/chrome/mdns/npapi-mdns.so">
 <folderInfo id="cdt.managedbuild.config.gnu.so.release.1813352475." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.so.release.1188301302" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.so.release">
 <targetPlatform id="cdt.managedbuild.target.gnu.platform.so.release.1311106202" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.so.release"/>
@@ -535,6 +537,8 @@
 <option defaultValue="true" id="gnu.cpp.link.so.release.option.shared.1184263159" name="Shared (-shared)" superClass="gnu.cpp.link.so.release.option.shared" valueType="boolean"/>
 <option id="gnu.cpp.link.option.libs.580290458" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 <listOptionValue builtIn="false" value="dl"/>
+<listOptionValue builtIn="false" value="avahi-common"/>
+<listOptionValue builtIn="false" value="avahi-client"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.331444070" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
