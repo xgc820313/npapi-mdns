@@ -4,7 +4,7 @@
 	"version": "2",
 	"description": "mDNS based Service Discovery",
 	"update_url":"http://npapi-mdns.googlecode.com/svn/trunk/project/extensions/chrome/updates.xml",
-	"icons": { "avahi.png" },
+	"icons": { 16:"avahi.png" },
 	"plugins": [ 
 		{ "path":"npapi-mdns.so", "public":false}
 	]
