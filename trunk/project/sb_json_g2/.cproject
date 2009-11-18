@@ -15,7 +15,7 @@
 </extensions>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<configuration artifactName="ServiceBrowserJSON2" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.exe.debug.1485164654" name="Debug" parent="cdt.managedbuild.config.gnu.exe.debug" postbuildStep="cp ServiceBrowserJSON2 ../../extensions/chrome/ext/ServiceBrowserJSON">
+<configuration artifactName="ServiceBrowserJSON2" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.exe.debug.1485164654" name="Debug" parent="cdt.managedbuild.config.gnu.exe.debug" postbuildStep="cp ServiceBrowserJSON2 ../../extensions/chrome/mdns/ServiceBrowserJSON">
 <folderInfo id="cdt.managedbuild.config.gnu.exe.debug.1485164654." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.exe.debug.293794142" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.exe.debug">
 <targetPlatform id="cdt.managedbuild.target.gnu.platform.exe.debug.2128589301" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.exe.debug"/>
@@ -484,7 +484,7 @@
 </extensions>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<configuration artifactName="ServiceBrowserJSON2" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.exe.release.846424702" name="Release" parent="cdt.managedbuild.config.gnu.exe.release" postbuildStep="cp ServiceBrowserJSON2 ../../extensions/chrome/ext/ServiceBrowserJSON">
+<configuration artifactName="ServiceBrowserJSON2" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.exe.release.846424702" name="Release" parent="cdt.managedbuild.config.gnu.exe.release" postbuildStep="cp ServiceBrowserJSON2 ../../extensions/chrome/mdns/ServiceBrowserJSON">
 <folderInfo id="cdt.managedbuild.config.gnu.exe.release.846424702." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.exe.release.251188748" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.exe.release">
 <targetPlatform id="cdt.managedbuild.target.gnu.platform.exe.release.663153509" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.exe.release"/>

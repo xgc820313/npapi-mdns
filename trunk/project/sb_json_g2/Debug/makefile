@@ -55,7 +55,7 @@ clean:
 	-@echo ' '
 
 post-build:
-	-cp ServiceBrowserJSON2 ../../extensions/chrome/ext/ServiceBrowserJSON
+	-cp ServiceBrowserJSON2 ../../extensions/chrome/mdns/ServiceBrowserJSON
 	-@echo ' '
 
 .PHONY: all clean dependents
