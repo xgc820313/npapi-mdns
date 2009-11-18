@@ -55,7 +55,7 @@ clean:
 	-@echo ' '
 
 post-build:
-	-cp npapi-mdns.so ../../extensions/chrome/ext/npapi-mdns.so
+	-cp npapi-mdns.so ../../extensions/chrome/mdns/npapi-mdns.so
 	-@echo ' '
 
 .PHONY: all clean dependents

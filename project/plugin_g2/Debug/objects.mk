@@ -4,4 +4,4 @@
 
 USER_OBJS :=
 
-LIBS := -ldl
+LIBS := -ldl -lavahi-common -lavahi-client

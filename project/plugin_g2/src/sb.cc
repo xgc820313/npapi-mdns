@@ -7,6 +7,8 @@
 
 #include "sb.h"
 
+#include "sb_json.h"
+
 ServiceBrowser::ServiceBrowser() {
 	st=NOT_READY;
 	fd[0]=-1;
@@ -40,12 +42,14 @@ ServiceBrowser::init(void) {
 
 	int rc=socketpair( AF_UNIX, SOCK_STREAM, 0, fd );
 	if (rc<0) {
+		DBGLOG(LOG_ERR, "ServiceBrowser: can't create socketpair.");
 		st=ERROR;
 		return false;
 	}
 
 	sb_pid = fork();
 	if (sb_pid < 0) {
+		DBGLOG(LOG_ERR, "ServiceBrowser: can't fork.");
 		st=ERROR;
 		return false;
 	}
@@ -67,10 +71,15 @@ ServiceBrowser::init(void) {
 				exit(0);
 			}
 		}
+
+		avahi_service_browser();
+
+		/*
 		if (execl(sbpath.data(), "", NULL) < 0) {
 			DBGLOG(LOG_ERR, "ServiceBrowser: can't execl");
 			exit(0);
 	    }
+	    */
 	    exit(0);
 	}//child
 
