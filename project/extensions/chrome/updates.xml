@@ -2,7 +2,7 @@
 <gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
 
   <app appid='dkdjablniceoehfniccibnfhkjeedeci'>
-    <updatecheck codebase='http://npapi-mdns.googlecode.com/svn/trunk/project/extensions/chrome/mdns-2.crx' version='2' />
+    <updatecheck codebase='http://npapi-mdns.googlecode.com/svn/trunk/project/extensions/chrome/mdns-3.crx' version='3' />
   </app>
   
 </gupdate>
