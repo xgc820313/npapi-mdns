@@ -1,0 +1,3 @@
+#!/bin/sh
+
+python upload.py --project npapi-mdns --labels featured --summary "Google Chrome Extension 'npapi-mdns'" $@
